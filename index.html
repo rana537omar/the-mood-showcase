@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Mood</title>
+  <meta name="description" content="The Mood: event ticketing with event discovery, card checkout (Stripe and Paymob), QR e-tickets, an organizer console, a box office and door check-in.">
+  <meta property="og:title" content="The Mood: event ticketing">
+  <meta property="og:description" content="Discovery, checkout, QR e-tickets, an organizer console and door check-in.">
+  <meta property="og:image" content="https://rana537omar.github.io/the-mood-showcase/media/banner.png">
+  <link rel="icon" href="media/icon.svg" type="image/svg+xml">
+  <style>
+    :root { color-scheme: dark; --page: #000; --surface: #0e0e0e; --surface-2: #161616; --text: #fff; --text-2: #d8d8d8; --muted: #8c8c8c; --border: rgba(216,216,216,.14); --accent: #0068ff; --accent-text: #5c9dff; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: "Segoe UI Variable Display", "Segoe UI", system-ui, -apple-system, sans-serif; background: var(--page); color: var(--text); line-height: 1.5; -webkit-font-smoothing: antialiased; }
+    img, video { max-width: 100%; display: block; }
+    a { color: var(--accent-text); }
+    .wrap { max-width: 1160px; margin: 0 auto; padding: 0 16px; }
+    .topbar { position: sticky; top: 0; z-index: 40; background: rgba(0,0,0,.82); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); }
+    .topbar .wrap { display: flex; align-items: center; gap: 12px; height: 60px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 19px; letter-spacing: -.02em; color: var(--text); text-decoration: none; }
+    .brand img { width: 30px; height: 30px; }
+    .topbar nav { margin-left: auto; display: flex; gap: 4px; }
+    .topbar nav a { color: var(--text-2); text-decoration: none; font-size: 14.5px; font-weight: 600; padding: 7px 12px; border-radius: 999px; }
+    .topbar nav a:hover { background: var(--surface-2); color: var(--text); }
+    header.hero { background: radial-gradient(900px 420px at 10% 0%, rgba(0,104,255,.35), transparent 70%), #000; }
+    header.hero img { width: 100%; }
+    h1 { font-size: clamp(30px, 4.4vw, 46px); margin: 36px 0 10px; letter-spacing: -.035em; line-height: 1.1; }
+    h2 { font-size: clamp(22px, 2.6vw, 28px); margin: 56px 0 18px; letter-spacing: -.02em; }
+    h2 .k { display: block; font-size: 12.5px; letter-spacing: .2em; text-transform: uppercase; color: var(--accent-text); margin-bottom: 6px; font-weight: 700; }
+    .lead { font-size: 18px; color: var(--text-2); max-width: 840px; margin: 0; }
+    .notice { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 10px; padding: 12px 16px; margin: 26px 0; color: var(--text-2); }
+    .video { border-radius: 16px; overflow: hidden; border: 1px solid var(--border); background: #000; box-shadow: 0 0 0 6px rgba(0,104,255,.08), 0 30px 80px rgba(0,0,0,.6); }
+    .video video { width: 100%; aspect-ratio: 16 / 9; }
+    .video-note { color: var(--muted); font-size: 14px; margin: 12px 2px 0; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 18px 18px 20px; }
+    .card h3 { margin: 0 0 10px; font-size: 16.5px; display: flex; align-items: center; gap: 10px; }
+    .card h3 i { width: 30px; height: 30px; border-radius: 9px; background: rgba(0,104,255,.16); color: var(--accent-text); display: grid; place-items: center; font-style: normal; flex: none; }
+    .card ul { margin: 0; padding-left: 18px; color: var(--text-2); font-size: 14.5px; }
+    .card li + li { margin-top: 5px; }
+    .gallery { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 18px; }
+    figure { margin: 0; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+    figure button { all: unset; display: block; width: 100%; cursor: zoom-in; }
+    figure button:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
+    figure img { width: 100%; border-bottom: 1px solid var(--border); }
+    figcaption { padding: 11px 14px; font-size: 14px; color: var(--text-2); }
+    figcaption b { color: var(--text); }
+    .phones { max-width: 820px; margin: 28px auto 0; border-radius: 16px; overflow: hidden; border: 1px solid var(--border); }
+    .cta { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; margin: 4px 0 0; }
+    .wa-btn { display: inline-flex; align-items: center; gap: 12px; background: #168f48; color: #fff; text-decoration: none; font-weight: 700; font-size: 17px; padding: 13px 22px 13px 18px; border-radius: 999px; box-shadow: 0 6px 18px rgba(22,143,72,.3); }
+    .wa-btn:hover { background: #127a3d; }
+    .wa-btn:focus-visible, .wa-float:focus-visible { outline: 3px solid #86b6ef; outline-offset: 3px; }
+    .wa-btn small { display: block; font-weight: 500; font-size: 13px; opacity: .9; }
+    .cta-note { color: var(--text-2); font-size: 14.5px; }
+    .wa-float { position: fixed; right: 18px; bottom: 18px; z-index: 50; width: 58px; height: 58px; border-radius: 50%; background: #168f48; display: grid; place-items: center; box-shadow: 0 8px 24px rgba(0,0,0,.45); }
+    .wa-float:hover { background: #127a3d; }
+    .contact { margin-top: 56px; background: radial-gradient(600px 240px at 0% 0%, rgba(0,104,255,.22), transparent 70%), var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 24px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between; }
+    .contact h2 { margin: 0 0 4px; }
+    .contact p { margin: 0; color: var(--text-2); max-width: 640px; }
+    footer { margin: 36px 0 96px; padding-top: 20px; border-top: 1px solid var(--border); color: var(--muted); font-size: 13.5px; }
+    dialog { border: 0; padding: 0; background: transparent; max-width: min(1400px, 96vw); }
+    dialog::backdrop { background: rgba(0,0,0,.88); }
+    dialog img { max-height: 90vh; width: auto; margin: 0 auto; border-radius: 10px; border: 1px solid var(--border); }
+    dialog p { text-align: center; color: var(--text-2); margin: 10px 0 0; font-size: 14px; }
+    dialog .close { position: fixed; top: 14px; right: 18px; width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--border); background: var(--surface-2); color: #fff; font-size: 22px; cursor: pointer; }
+    @media (max-width: 640px) { .topbar nav a:not(.go) { display: none; } }
+    @media (max-width: 420px) { .gallery { grid-template-columns: minmax(0, 1fr); } }
+  </style>
+</head>
+<body>
+  <div class="topbar"><div class="wrap">
+    <a class="brand" href="#top"><img src="media/icon.svg" alt="">The Mood</a>
+    <nav><a href="#demo">Demo</a><a href="#features">Features</a><a href="#screens">Screenshots</a><a class="go" href="#contact">Get it</a></nav>
+  </div></div>
+  <header class="hero" id="top"><div class="wrap" style="padding:0"><img src="media/banner.png" alt="The Mood: event ticketing with discovery, checkout, QR e-tickets, an organizer console and door check-in"></div></header>
+  <main class="wrap">
+    <h1>Event ticketing that feels like the night itself.</h1>
+    <p class="lead">The Mood sells tickets for concerts, comedy, conferences and nights out. Buyers find an event, pay by card and get QR e-tickets on their phone in under a minute. Organizers run events, sales, refunds, promo codes and the box office from one console, and the door team scans guests in from any phone.</p>
+    <div class="notice">This page is a product showcase. The software and its source code are proprietary and not available for download. All names, events and figures shown are fictional demo data.</div>
+    <div class="cta">
+      <a class="wa-btn" href="https://wa.me/201208562225?text=Hello%2C%20I%20saw%20The%20Mood%20ticketing%20app%20and%20I%20would%20like%20to%20get%20the%20full%20system%20and%20the%20source%20code." target="_blank" rel="noopener">
+        <svg width="28" height="28" viewBox="0 0 36 36" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 33 7 25.6A15.5 15.5 0 1 1 12.6 31z"/><path d="M12.4 11.6c-.4 5.6 5.6 11.8 11.4 11.6l1.9-2.6-3.3-2-1.7 1.3a10.4 10.4 0 0 1-4.6-4.6l1.3-1.7-2-3.3z" fill="#fff" stroke-width="1.4"/></svg>
+        <span>Get the full system &amp; code<small>Chat on WhatsApp · +20 120 856 2225</small></span>
+      </a>
+      <span class="cta-note">For your venue or events company, a live demo, or the complete source code.</span>
+    </div>
+
+    <h2 id="demo"><span class="k">Watch</span>Demo video</h2>
+    <div class="video">
+      <video controls preload="metadata" poster="media/video-poster.png" controlslist="nodownload noremoteplayback" disablepictureinpicture oncontextmenu="return false" playsinline>
+        <source src="media/The-Mood-demo.mp4" type="video/mp4">
+      </video>
+    </div>
+    <p class="video-note">1:47 · 1080p. A buyer finds an event, applies a promo code, pays and gets QR e-tickets. Then the organizer console: dashboard, events, attendees, a box-office sale, door check-in (and a caught second scan), promo codes and payment settings.</p>
+
+    <h2 id="features"><span class="k">What it does</span>Features</h2>
+    <div class="grid">
+      <div class="card"><h3><i>⌕</i>Event discovery</h3><ul>
+        <li>Search with category, date and city filters</li>
+        <li>Featured events, "selling fast" and "sold out" badges</li>
+        <li>Event pages with live availability and a live price quote</li>
+        <li>Waitlist when an event sells out</li></ul></div>
+      <div class="card"><h3><i>₤</i>Checkout &amp; payments</h3><ul>
+        <li>Tickets held for 10 minutes while the buyer pays: no overselling</li>
+        <li>Real card payments with Stripe or Paymob</li>
+        <li>Apple Pay / Google Pay, mobile wallets and local methods</li>
+        <li>Promo codes, service fees and automatic refunds</li></ul></div>
+      <div class="card"><h3><i>▦</i>QR e-tickets</h3><ul>
+        <li>One ticket per attendee, with a name on each</li>
+        <li>Print, save as PDF or add to calendar</li>
+        <li>"Find my tickets" by email and order number</li>
+        <li>A ticket page buyers can reopen any time</li></ul></div>
+      <div class="card"><h3><i>▤</i>Organizer console</h3><ul>
+        <li>Dashboard: sales, tickets, check-ins and fees vs the previous period</li>
+        <li>Events, ticket types, sales windows and capacity</li>
+        <li>Orders with history, refunds and resends</li>
+        <li>Attendees with search and CSV export</li></ul></div>
+      <div class="card"><h3><i>✓</i>Door check-in</h3><ul>
+        <li>Barcode scanners, typed codes or the phone camera</li>
+        <li>Big green / amber / red result for every scan</li>
+        <li>Second scans, refunded and wrong-event tickets caught</li>
+        <li>Each ticket admitted once, even across several doors</li></ul></div>
+      <div class="card"><h3><i>⚙</i>Box office, team &amp; brand</h3><ul>
+        <li>Door and phone sales (cash, card, transfer) and comps</li>
+        <li>Admin, Organizer and Door staff roles</li>
+        <li>Encrypted payment keys and signed webhooks</li>
+        <li>Your logo, colours and cover photos</li></ul></div>
+    </div>
+
+    <h2 id="screens"><span class="k">For buyers</span>The public site</h2>
+    <div class="gallery">
+      <figure><button type="button"><img src="media/home.png" alt="Home page" loading="lazy"></button><figcaption><b>Home</b>: search and featured events.</figcaption></figure>
+      <figure><button type="button"><img src="media/events.png" alt="Upcoming events" loading="lazy"></button><figcaption><b>Upcoming events</b> with category and date filters.</figcaption></figure>
+      <figure><button type="button"><img src="media/event.png" alt="Event page" loading="lazy"></button><figcaption><b>Event page</b>: ticket types and a live quote with a promo code.</figcaption></figure>
+      <figure><button type="button"><img src="media/checkout.png" alt="Checkout" loading="lazy"></button><figcaption><b>Checkout</b>: tickets held while the buyer pays.</figcaption></figure>
+      <figure><button type="button"><img src="media/confirmation.png" alt="Order confirmation" loading="lazy"></button><figcaption><b>Confirmation</b>: the order and its e-tickets.</figcaption></figure>
+      <figure><button type="button"><img src="media/tickets.png" alt="E-tickets" loading="lazy"></button><figcaption><b>E-tickets</b>: one QR code per attendee.</figcaption></figure>
+    </div>
+
+    <h2><span class="k">For organizers</span>The console</h2>
+    <div class="gallery">
+      <figure><button type="button"><img src="media/dashboard.png" alt="Organizer dashboard" loading="lazy"></button><figcaption><b>Dashboard</b>: sales, tickets, check-ins and daily sales.</figcaption></figure>
+      <figure><button type="button"><img src="media/events-console.png" alt="Events in the console" loading="lazy"></button><figcaption><b>Events</b>: sales, capacity and status.</figcaption></figure>
+      <figure><button type="button"><img src="media/event-overview.png" alt="Event overview" loading="lazy"></button><figcaption><b>Event overview</b>: one event's sales and check-ins.</figcaption></figure>
+      <figure><button type="button"><img src="media/ticket-types.png" alt="Ticket types" loading="lazy"></button><figcaption><b>Ticket types</b>: prices, limits and sales windows.</figcaption></figure>
+      <figure><button type="button"><img src="media/attendees.png" alt="Attendees" loading="lazy"></button><figcaption><b>Attendees</b>: search, check in by hand, export.</figcaption></figure>
+      <figure><button type="button"><img src="media/box-office.png" alt="Box office" loading="lazy"></button><figcaption><b>Box office</b>: door and phone sales, or comps.</figcaption></figure>
+      <figure><button type="button"><img src="media/orders.png" alt="Orders" loading="lazy"></button><figcaption><b>Orders</b>: search and filter every order.</figcaption></figure>
+      <figure><button type="button"><img src="media/order-detail.png" alt="Order detail" loading="lazy"></button><figcaption><b>Order detail</b>: tickets, payment, buyer and history.</figcaption></figure>
+      <figure><button type="button"><img src="media/checkin.png" alt="Door check-in" loading="lazy"></button><figcaption><b>Door check-in</b>: green means let them in.</figcaption></figure>
+      <figure><button type="button"><img src="media/promo-codes.png" alt="Promo codes" loading="lazy"></button><figcaption><b>Promo codes</b> with limits and dates.</figcaption></figure>
+      <figure><button type="button"><img src="media/payments.png" alt="Payment settings" loading="lazy"></button><figcaption><b>Payments</b>: Stripe, Paymob or test mode.</figcaption></figure>
+      <figure><button type="button"><img src="media/event-form.png" alt="Event editor" loading="lazy"></button><figcaption><b>Event editor</b> with the cover photo library.</figcaption></figure>
+    </div>
+    <img class="phones" src="media/phones.png" alt="The event page, a QR e-ticket and the door check-in screen on phones" loading="lazy">
+
+    <section class="contact" id="contact" aria-labelledby="contact-title">
+      <div><h2 id="contact-title">Get the full system</h2><p>Want The Mood for your venue or events company, a live demo, or the complete source code? Message me on WhatsApp: <b>+20 120 856 2225</b>.</p></div>
+      <a class="wa-btn" href="https://wa.me/201208562225?text=Hello%2C%20I%20saw%20The%20Mood%20ticketing%20app%20and%20I%20would%20like%20to%20get%20the%20full%20system%20and%20the%20source%20code." target="_blank" rel="noopener">
+        <svg width="28" height="28" viewBox="0 0 36 36" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 33 7 25.6A15.5 15.5 0 1 1 12.6 31z"/><path d="M12.4 11.6c-.4 5.6 5.6 11.8 11.4 11.6l1.9-2.6-3.3-2-1.7 1.3a10.4 10.4 0 0 1-4.6-4.6l1.3-1.7-2-3.3z" fill="#fff" stroke-width="1.4"/></svg>
+        <span>Chat on WhatsApp<small>+20 120 856 2225</small></span>
+      </a>
+    </section>
+
+    <footer>
+      <p>The Mood is available for venues and events companies on request: WhatsApp <a href="https://wa.me/201208562225">+20 120 856 2225</a> or <a href="https://github.com/rana537omar">@rana537omar</a> on GitHub.</p>
+      <p>Copyright &copy; 2026 Rana Omar. All rights reserved. The text, images and video on this page are shared for viewing only. No license is granted to copy, reuse or republish them, or to use the software they show. Photographs inside the screenshots remain the property of their respective owners.</p>
+    </footer>
+  </main>
+  <dialog id="zoom" aria-label="Screenshot"><button class="close" type="button" aria-label="Close">×</button><img alt=""><p></p></dialog>
+  <a class="wa-float" href="https://wa.me/201208562225?text=Hello%2C%20I%20saw%20The%20Mood%20ticketing%20app%20and%20I%20would%20like%20to%20get%20the%20full%20system%20and%20the%20source%20code." target="_blank" rel="noopener" aria-label="Chat on WhatsApp to get the full system" title="Chat on WhatsApp: +20 120 856 2225">
+    <svg width="30" height="30" viewBox="0 0 36 36" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 33 7 25.6A15.5 15.5 0 1 1 12.6 31z"/><path d="M12.4 11.6c-.4 5.6 5.6 11.8 11.4 11.6l1.9-2.6-3.3-2-1.7 1.3a10.4 10.4 0 0 1-4.6-4.6l1.3-1.7-2-3.3z" fill="#fff" stroke-width="1.4"/></svg>
+  </a>
+  <script>
+    document.querySelectorAll('img').forEach((i) => i.addEventListener('contextmenu', (e) => e.preventDefault()));
+    const dlg = document.getElementById('zoom');
+    document.querySelectorAll('figure button').forEach((b) => b.addEventListener('click', () => {
+      const img = b.querySelector('img');
+      dlg.querySelector('img').src = img.src;
+      dlg.querySelector('img').alt = img.alt;
+      dlg.querySelector('p').textContent = b.parentElement.querySelector('figcaption').textContent;
+      dlg.showModal();
+    }));
+    dlg.addEventListener('click', (e) => { if (e.target === dlg || e.target.classList.contains('close')) dlg.close(); });
+  </script>
+</body>
+</html>
