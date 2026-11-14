@@ -1,6 +1,6 @@
-<p align="center"><img src="media/banner.png" alt="The Mood: event ticketing with discovery, checkout, QR e-tickets, an organizer console and door check-in" width="100%"></p>
+<p align="center"><img src="media/banner.png" alt="The Mood (Event Ticketing App): discovery, checkout, QR e-tickets, an organizer console and door check-in" width="100%"></p>
 
-# The Mood
+# The Mood (Event Ticketing App)
 
 **A complete event ticketing platform for concerts, comedy, conferences and nights out.** Buyers find an event, pay by card and get QR e-tickets on their phone in under a minute. Organizers run everything from one console: events and ticket types, sales and refunds, promo codes, a box office for door and phone sales, and a door check-in screen that works on any phone or laptop.
 
@@ -12,7 +12,7 @@
 
 ## Demo video
 
-<p align="center"><a href="https://rana537omar.github.io/the-mood-showcase/#demo"><img src="media/video-poster.png" alt="Watch the 2-minute The Mood demo" width="100%"></a></p>
+<p align="center"><a href="https://rana537omar.github.io/the-mood-showcase/#demo"><img src="media/video-poster.png" alt="Watch the 2-minute demo of The Mood (Event Ticketing App)" width="100%"></a></p>
 
 A walkthrough of just under 2 minutes, in 1080p. It shows a buyer finding an event, applying a promo code, paying and getting QR e-tickets. Then it moves to the organizer console: the dashboard, events and attendees, a box-office sale, the door check-in scan (and a caught second scan), promo codes and the payment settings. **[Watch it on the showcase website](https://rana537omar.github.io/the-mood-showcase/#demo)**.
 

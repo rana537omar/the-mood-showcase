@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>The Mood</title>
-  <meta name="description" content="The Mood: event ticketing with event discovery, card checkout (Stripe and Paymob), QR e-tickets, an organizer console, a box office and door check-in.">
-  <meta property="og:title" content="The Mood: event ticketing">
+  <title>The Mood (Event Ticketing App)</title>
+  <meta name="description" content="The Mood (Event Ticketing App): event discovery, card checkout (Stripe and Paymob), QR e-tickets, an organizer console, a box office and door check-in.">
+  <meta property="og:title" content="The Mood (Event Ticketing App)">
   <meta property="og:description" content="Discovery, checkout, QR e-tickets, an organizer console and door check-in.">
   <meta property="og:image" content="https://rana537omar.github.io/the-mood-showcase/media/banner.png">
   <link rel="icon" href="media/icon.svg" type="image/svg+xml">
@@ -20,6 +20,8 @@
     .topbar .wrap { display: flex; align-items: center; gap: 12px; height: 60px; }
     .brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 19px; letter-spacing: -.02em; color: var(--text); text-decoration: none; }
     .brand img { width: 30px; height: 30px; }
+    .brand .type { font-weight: 600; font-size: 14.5px; letter-spacing: 0; color: var(--text-2); }
+    @media (max-width: 480px) { .brand .type { display: none; } }
     .topbar nav { margin-left: auto; display: flex; gap: 4px; }
     .topbar nav a { color: var(--text-2); text-decoration: none; font-size: 14.5px; font-weight: 600; padding: 7px 12px; border-radius: 999px; }
     .topbar nav a:hover { background: var(--surface-2); color: var(--text); }
@@ -70,10 +72,10 @@
 </head>
 <body>
   <div class="topbar"><div class="wrap">
-    <a class="brand" href="#top"><img src="media/icon.svg" alt="">The Mood</a>
+    <a class="brand" href="#top"><img src="media/icon.svg" alt="">The Mood <span class="type">(Event Ticketing App)</span></a>
     <nav><a href="#demo">Demo</a><a href="#features">Features</a><a href="#screens">Screenshots</a><a class="go" href="#contact">Get it</a></nav>
   </div></div>
-  <header class="hero" id="top"><div class="wrap" style="padding:0"><img src="media/banner.png" alt="The Mood: event ticketing with discovery, checkout, QR e-tickets, an organizer console and door check-in"></div></header>
+  <header class="hero" id="top"><div class="wrap" style="padding:0"><img src="media/banner.png" alt="The Mood (Event Ticketing App): discovery, checkout, QR e-tickets, an organizer console and door check-in"></div></header>
   <main class="wrap">
     <h1>Event ticketing that feels like the night itself.</h1>
     <p class="lead">The Mood sells tickets for concerts, comedy, conferences and nights out. Buyers find an event, pay by card and get QR e-tickets on their phone in under a minute. Organizers run events, sales, refunds, promo codes and the box office from one console, and the door team scans guests in from any phone.</p>
